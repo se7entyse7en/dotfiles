@@ -1,0 +1,17 @@
+[user]
+        name = Lou Marvin Caraig
+        email = loumarvincaraig@gmail.com
+[alias]
+        tree = log --graph --decorate --pretty=oneline --abbrev-commit
+        start = !'git init . && git commit --allow-empty -m \"Initial commit\"'
+        amend = !'git commit -a --fixup=head && git rebase -i --autosquash head^^'
+        rebaster = !'current_branch=$(git rev-parse --abbrev-ref HEAD) && git fetch && git checkout master && git reset --hard origin/master && git checkout $current_branch && git rebase -i master'
+        rebush = !'current_branch=$(git rev-parse --abbrev-ref HEAD) && git fetch && git checkout master && git reset --hard origin/master && git checkout $current_branch && git rebase master && git push origin $current_branch'
+        fpush = !'current_branch=$(git rev-parse --abbrev-ref HEAD) && git push -f origin $current_branch'
+	rebabort = !'git reflog | grep -v rebase | head -1 | sed -e \"s/^\\([[:alnum:]][[:alnum:]]*\\)\\(.*\\)/\\1/g\" | git reset --hard'
+        backup = !'current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout -b "${current_branch}_tmp" && git checkout $current_branch'
+[core]
+        editor = emacs
+        excludesfile = ~/.gitignore_global
+[help]
+	autocorrect = 1
