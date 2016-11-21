@@ -37,6 +37,7 @@ brew install zsh-completions
 
 # emacs
 brew install emacs --with-cocoa --with-gnutls --with-imagemagick
+brew linkapps emacs
 
 # Tapping taps
 echo "Tapping caskroom/cask..."
