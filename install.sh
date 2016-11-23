@@ -1,3 +1,4 @@
+./keys.sh
 ./brew.sh
 ./zsh.sh
 ./git.sh
