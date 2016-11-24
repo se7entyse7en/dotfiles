@@ -35,6 +35,10 @@ echo "Installing zsh..."
 brew install zsh
 brew install zsh-completions
 
+# emacs
+brew install emacs --with-cocoa --with-gnutls --with-imagemagick
+brew linkapps emacs
+
 # Tapping taps
 echo "Tapping caskroom/cask..."
 brew tap caskroom/cask
@@ -42,7 +46,6 @@ echo "Tapping homebrew/science..."
 brew tap homebrew/science
 
 echo "Installing dev packages from caskroom/cask..."
-brew cask install emacs
 brew cask install gas-mask
 brew cask install java
 brew cask install karabiner
