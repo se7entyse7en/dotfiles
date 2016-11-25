@@ -4,6 +4,7 @@ curl -fsSL https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.s
 chmod +x /tmp/Miniconda3-latest-MacOSX-x86_64.sh
 /tmp/Miniconda3-latest-MacOSX-x86_64.sh -b
 
+export PATH="$HOME/miniconda3/bin:$PATH"
 conda --version
 
 # Update conda
