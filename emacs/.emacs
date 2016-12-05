@@ -100,7 +100,9 @@
              :init (add-hook 'python-mode-hook '(lambda ()
                                (setq python-indent-offset 4)
                                (setq indent-tabs-mode nil)))
-             :config (elpy-enable))
+             :config
+	     (elpy-enable)
+	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
 
 ;; Use isort and auto sort imports on save
 (use-package py-isort
