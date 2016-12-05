@@ -48,7 +48,6 @@ brew tap homebrew/science
 echo "Installing dev packages from caskroom/cask..."
 brew cask install gas-mask
 brew cask install java
-brew cask install karabiner
 brew cask install rstudio
 brew cask install vagrant
 brew cask install virtualbox
