@@ -11,7 +11,7 @@
 	rebabort = "!f(){ git reflog | grep -v rebase | head -1 | sed -e \"s/^\\([[:alnum:]][[:alnum:]]*\\)\\(.*\\)/\\1/g\" | git reset --hard; }; f"
         backup = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout -b \"${current_branch}_tmp\" && git checkout $current_branch; }; f"
 [core]
-        editor = emacs
+        editor = emacs -nw
         excludesfile = ~/.gitignore_global
 [help]
 	autocorrect = 1
