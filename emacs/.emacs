@@ -43,14 +43,29 @@
 (setq current-language-environment "English")
 
 
-;;--------------;;
-;; Key Bindings ;;
-;;--------------;;
+;;---------------------------------;;
+;; Key Bindings - Control and Meta ;;
+;;---------------------------------;;
 (when (eq system-type 'darwin)
   (setq mac-option-modifier 'alt)
   (setq mac-command-modifier 'meta)
   )
+
+
+;;---------;;
+;; Utility ;;
+;;---------;;
+;; Automatically indent on newline
 (global-set-key "\r" 'newline-and-indent)
+
+;; Revert buffer without confirmation
+(defun revert-buffer-no-confirm ()
+    (interactive)
+    (revert-buffer :ignore-auto :noconfirm))
+(global-set-key (kbd "C-c r") 'revert-buffer-no-confirm)
+
+;; Delete trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;;------------------;;
