@@ -4,6 +4,10 @@
 echo "Insalling oh-my-zsh..."
 git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+# Add custom theme
+echo "Adding custom theme..."
+cp ./zsh/se7entyse7en.zsh-theme ~/.oh-my-zsh/custom/themes/
+
 # Copy .zshrc file
 echo "Copying .zshrc configuration file..."
 cp ./zsh/.zshrc ~/.zshrc
