@@ -20,3 +20,10 @@ if [ -z "$ZSH_DEFAULT_SHELL" ]; then
     which zsh | sudo tee -a /etc/shells
     chsh -s $(which zsh)
 fi
+
+echo "Setting default terminal theme..."
+# Open terminal theme
+open ./zsh/se7entyse7en-theme.terminal
+# Set the 'se7entyse7en-theme' as the default
+defaults write com.apple.Terminal "Startup Window Settings" -string "se7entyse7en-theme"
+defaults write com.apple.Terminal "Default Window Settings" -string "se7entyse7en-theme"
