@@ -8,11 +8,13 @@
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.org/packages/"))
+        ("melpa" . "http://melpa.org/packages/")
+	("melpa-stable" . "https://stable.melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
         ("marmalade" . 20)
-        ("melpa" . 30))
+        ("melpa" . 30)
+	("melpa-stable" . 40))
       )
 (package-initialize)
 
@@ -129,6 +131,12 @@
 (use-package yaml-mode)
 
 
+;;----------;;
+;; Markdown ;;
+;;----------;;
+(use-package markdown-mode)
+
+
 ;;-------;;
 ;; Theme ;;
 ;;-------;;
@@ -149,4 +157,3 @@
 ;; CSS
 ;; Json
 ;; Latex
-;; Markdown
