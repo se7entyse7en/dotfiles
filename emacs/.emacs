@@ -8,11 +8,13 @@
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.org/packages/"))
+        ("melpa" . "http://melpa.org/packages/")
+	("melpa-stable" . "https://stable.melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
         ("marmalade" . 20)
-        ("melpa" . 30))
+        ("melpa" . 30)
+	("melpa-stable" . 40))
       )
 (package-initialize)
 
@@ -64,7 +66,7 @@
     (revert-buffer :ignore-auto :noconfirm))
 (global-set-key (kbd "C-c r") 'revert-buffer-no-confirm)
 
-;; Delete trailing whitespace
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
@@ -103,8 +105,7 @@
 ;; Simplify navigation of files for a project
 (use-package projectile)
 (use-package counsel-projectile
-             :bind ("C-x F" . counsel-projectile-find-file)
-             )
+             :bind ("C-x F" . counsel-projectile-find-file))
 
 
 ;;--------;;
@@ -124,24 +125,43 @@
              :init (add-hook 'before-save-hook 'py-isort-before-save))
 
 
+;;------;;
+;; YAML ;;
+;;------;;
+(use-package yaml-mode)
+
+
+;;----------;;
+;; Markdown ;;
+;;----------;;
+(use-package markdown-mode)
+
+
+;;-------------;;
+;; R and Julia ;;
+;;-------------;;
+(use-package ess
+  :init
+  (require 'ess-site)
+  (ess-toggle-underscore nil)
+  )
+
+
 ;;-------;;
 ;; Theme ;;
 ;;-------;;
 ;; Load custom theme
 (load-theme 'se7entyse7en t)
 
+
 ;;-------;;
 ;; TODOs ;;
 ;;-------;;
 ;; Git
 ;; Javascript
-;; R
 ;; Octave
-;; Julia
 ;; Ruby
 ;; HTML
 ;; CSS
-;; YAML
 ;; Json
 ;; Latex
-;; Markdown

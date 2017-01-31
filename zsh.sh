@@ -4,6 +4,10 @@
 echo "Insalling oh-my-zsh..."
 git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+# Add custom theme
+echo "Adding custom theme..."
+cp ./zsh/se7entyse7en.zsh-theme ~/.oh-my-zsh/custom/themes/
+
 # Copy .zshrc file
 echo "Copying .zshrc configuration file..."
 cp ./zsh/.zshrc ~/.zshrc
@@ -20,3 +24,10 @@ if [ -z "$ZSH_DEFAULT_SHELL" ]; then
     which zsh | sudo tee -a /etc/shells
     chsh -s $(which zsh)
 fi
+
+echo "Setting default terminal theme..."
+# Open terminal theme
+open ./zsh/se7entyse7en-theme.terminal
+# Set the 'se7entyse7en-theme' as the default
+defaults write com.apple.Terminal "Startup Window Settings" -string "se7entyse7en-theme"
+defaults write com.apple.Terminal "Default Window Settings" -string "se7entyse7en-theme"
