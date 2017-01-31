@@ -137,6 +137,16 @@
 (use-package markdown-mode)
 
 
+;;-------------;;
+;; R and Julia ;;
+;;-------------;;
+(use-package ess
+  :init
+  (require 'ess-site)
+  (ess-toggle-underscore nil)
+  )
+
+
 ;;-------;;
 ;; Theme ;;
 ;;-------;;
@@ -149,9 +159,7 @@
 ;;-------;;
 ;; Git
 ;; Javascript
-;; R
 ;; Octave
-;; Julia
 ;; Ruby
 ;; HTML
 ;; CSS
