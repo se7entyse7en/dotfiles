@@ -2,7 +2,7 @@
         name = Lou Marvin Caraig
         email = loumarvincaraig@gmail.com
 [alias]
-        tree = log --graph --decorate --pretty=oneline --abbrev-commit
+        tree = log --graph --decorate --pretty=format:'%C(bold yellow)%h%Creset -%C(auto)%d %s %C(bold cyan)(%ad) %C(bold blue)<%an>%Creset' --abbrev-commit
         start = "!f(){ git init . && git commit --allow-empty -m \"Initial commit\"; }; f"
         amend = "!f(){ git commit -a --fixup=head && git rebase -i --autosquash head^^; }; f"
         rebaster = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git fetch && git checkout master && git reset --hard origin/master && git checkout $current_branch && git rebase -i master; }; f"
