@@ -106,6 +106,11 @@
 (use-package projectile)
 (use-package counsel-projectile
              :bind ("C-x F" . counsel-projectile-find-file))
+(use-package ace-window
+             :bind ("M-o" . ace-window)
+             :config
+             (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+             (setq aw-background nil))
 
 
 ;;--------;;
