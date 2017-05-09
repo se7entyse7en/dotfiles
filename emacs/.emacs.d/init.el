@@ -48,10 +48,10 @@
 ;;---------------------------------;;
 ;; Key Bindings - Control and Meta ;;
 ;;---------------------------------;;
-(when (eq system-type 'darwin)
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'meta)
-  )
+;; (when (eq system-type 'darwin)
+;;   (setq mac-option-modifier 'alt)
+;;   (setq mac-command-modifier 'meta)
+;;   )
 
 
 ;;---------;;
@@ -145,11 +145,11 @@
 ;;-------------;;
 ;; R and Julia ;;
 ;;-------------;;
-(use-package ess
-  :init
-  (require 'ess-site)
-  (ess-toggle-underscore nil)
-  )
+;; (use-package ess
+;;  :init
+;;  (require 'ess-site)
+;;  (ess-toggle-underscore nil)
+;;  )
 
 
 ;;-------;;
