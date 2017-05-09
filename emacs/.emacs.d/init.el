@@ -2,7 +2,7 @@
 ;; Packages Archives ;;
 ;;-------------------;;
 ;; Add .emacs.d to load-path
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; Setup package archives
 (setq package-enable-at-startup nil
       package-archives
