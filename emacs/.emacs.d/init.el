@@ -156,7 +156,7 @@
 ;; Theme ;;
 ;;-------;;
 ;; Load custom theme
-(load-theme 'se7entyse7en t)
+;; (load-theme 'se7entyse7en t)
 
 
 ;;-------;;
