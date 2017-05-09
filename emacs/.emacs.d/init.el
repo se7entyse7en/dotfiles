@@ -158,12 +158,24 @@
 ;; Load custom theme
 ;; (load-theme 'se7entyse7en t)
 
+;;------------;;
+;; Javascript ;;
+;;------------;;
+ (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;;----------------------;;
+;; DJANGO HTML Template ;;
+;;----------------------;;
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("django"    . "\\.html\\'")))
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
 
 ;;-------;;
 ;; TODOs ;;
 ;;-------;;
 ;; Git
-;; Javascript
 ;; Octave
 ;; Ruby
 ;; HTML
