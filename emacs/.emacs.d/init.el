@@ -92,7 +92,7 @@
 ;; Truncate lines even in partial-width windows
 (setq truncate-partial-width-windows t)
 ;; Display line numbers to the right of the window
-(global-linum-mode t)
+;; (global-linum-mode t)
 
 ;; Show the current line and column numbers in the stats bar as well
 (line-number-mode t)
