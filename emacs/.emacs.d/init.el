@@ -158,6 +158,21 @@
 ;; Load custom theme
 ;; (load-theme 'se7entyse7en t)
 
+;; No tab indentation
+(setq-default indent-tabs-mode nil)
+
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
+;; (setq whitespace-style '(face lines-tail))
+;; (add-hook 'prog-mode-hook 'whitespace-mode)
+
+
+;; whitespace cleanup before saving
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
+
 ;;------------;;
 ;; Javascript ;;
 ;;------------;;
