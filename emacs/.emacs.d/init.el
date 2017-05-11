@@ -2,19 +2,20 @@
 ;; Packages Archives ;;
 ;;-------------------;;
 ;; Add .emacs.d to load-path
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
 ;; Setup package archives
 (setq package-enable-at-startup nil
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
-	("melpa-stable" . "https://stable.melpa.org/packages/"))
+        ("melpa-stable" . "https://stable.melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
         ("marmalade" . 20)
         ("melpa" . 30)
-	("melpa-stable" . 40))
+        ("melpa-stable" . 40))
       )
 (package-initialize)
 
@@ -48,10 +49,10 @@
 ;;---------------------------------;;
 ;; Key Bindings - Control and Meta ;;
 ;;---------------------------------;;
-(when (eq system-type 'darwin)
-  (setq mac-option-modifier 'alt)
-  (setq mac-command-modifier 'meta)
-  )
+;; (when (eq system-type 'darwin)
+;;   (setq mac-option-modifier 'alt)
+;;   (setq mac-command-modifier 'meta)
+;;   )
 
 
 ;;---------;;
@@ -92,7 +93,7 @@
 ;; Truncate lines even in partial-width windows
 (setq truncate-partial-width-windows t)
 ;; Display line numbers to the right of the window
-(global-linum-mode t)
+;; (global-linum-mode t)
 
 ;; Show the current line and column numbers in the stats bar as well
 (line-number-mode t)
@@ -122,8 +123,8 @@
                                (setq python-indent-offset 4)
                                (setq indent-tabs-mode nil)))
              :config
-	     (elpy-enable)
-	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
+             (elpy-enable)
+             (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
 
 ;; Use isort and auto sort imports on save
 (use-package py-isort
@@ -145,28 +146,58 @@
 ;;-------------;;
 ;; R and Julia ;;
 ;;-------------;;
-(use-package ess
-  :init
-  (require 'ess-site)
-  (ess-toggle-underscore nil)
-  )
+;; (use-package ess
+;;  :init
+;;  (require 'ess-site)
+;;  (ess-toggle-underscore nil)
+;;  )
 
 
 ;;-------;;
 ;; Theme ;;
 ;;-------;;
 ;; Load custom theme
-(load-theme 'se7entyse7en t)
+;; (load-theme 'se7entyse7en t)
 
+;; No tab indentation
+(setq-default indent-tabs-mode nil)
+
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face empty tabs lines-tail trailing))
+(global-whitespace-mode t)
+;; (setq whitespace-style '(face lines-tail))
+;; (add-hook 'prog-mode-hook 'whitespace-mode)
+
+
+;; whitespace cleanup before saving
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
+
+;;------------;;
+;; Javascript ;;
+;;------------;;
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+
+;;----------------------;;
+;; DJANGO HTML Template ;;
+;;----------------------;;
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("django"    . "\\.html\\'")))
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
 
 ;;-------;;
 ;; TODOs ;;
 ;;-------;;
 ;; Git
-;; Javascript
 ;; Octave
 ;; Ruby
 ;; HTML
 ;; CSS
 ;; Json
 ;; Latex
+
+(load-library "mytricks")
