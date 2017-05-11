@@ -199,3 +199,5 @@
 ;; CSS
 ;; Json
 ;; Latex
+
+(load-library "mytricks")
