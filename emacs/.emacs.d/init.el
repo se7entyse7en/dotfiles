@@ -3,18 +3,19 @@
 ;;-------------------;;
 ;; Add .emacs.d to load-path
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+
 ;; Setup package archives
 (setq package-enable-at-startup nil
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
-	("melpa-stable" . "https://stable.melpa.org/packages/"))
+        ("melpa-stable" . "https://stable.melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
         ("marmalade" . 20)
         ("melpa" . 30)
-	("melpa-stable" . 40))
+        ("melpa-stable" . 40))
       )
 (package-initialize)
 
@@ -122,8 +123,8 @@
                                (setq python-indent-offset 4)
                                (setq indent-tabs-mode nil)))
              :config
-	     (elpy-enable)
-	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
+             (elpy-enable)
+             (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
 
 ;; Use isort and auto sort imports on save
 (use-package py-isort
