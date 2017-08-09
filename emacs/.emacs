@@ -8,13 +8,13 @@
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("marmalade" . "https://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")
-	("melpa-stable" . "https://stable.melpa.org/packages/"))
+	("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "http://melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
         ("marmalade" . 20)
-        ("melpa" . 30)
-	("melpa-stable" . 40))
+	("melpa-stable" . 30)
+	("melpa" . 40))
       )
 (package-initialize)
 
@@ -66,6 +66,11 @@
     (revert-buffer :ignore-auto :noconfirm))
 (global-set-key (kbd "C-c r") 'revert-buffer-no-confirm)
 
+;; Disable backup files creation
+(setq make-backup-files nil)
+
+;; Binding for goto-line
+(global-set-key (kbd "M-g") 'goto-line)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -106,6 +111,7 @@
 (use-package projectile)
 (use-package counsel-projectile
              :bind ("C-x F" . counsel-projectile-find-file))
+;; Simplify navigation between buffers
 (use-package ace-window
              :bind ("M-o" . ace-window)
              :config
@@ -142,9 +148,9 @@
 (use-package markdown-mode)
 
 
-;;-------------;;
-;; R and Julia ;;
-;;-------------;;
+;;---;;
+;; R ;;
+;;---;;
 (use-package ess
   :init
   (require 'ess-site)
@@ -165,6 +171,7 @@
 ;; Git
 ;; Javascript
 ;; Octave
+;; Julia
 ;; Ruby
 ;; HTML
 ;; CSS
