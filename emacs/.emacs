@@ -133,7 +133,14 @@
 
 ;; Use isort and auto sort imports on save
 (use-package py-isort
-             :init (add-hook 'before-save-hook 'py-isort-before-save))
+  :init (add-hook 'before-save-hook 'py-isort-before-save))
+
+;; Use pyenv to activate the correct conda environment
+(use-package pyvenv
+  :init
+  (setenv "WORKON_HOME" "/Users/se7entyse7en/miniconda3/envs")
+  (pyvenv-mode 1)
+  (pyvenv-tracking-mode 1))
 
 
 ;;------;;
