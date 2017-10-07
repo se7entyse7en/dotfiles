@@ -17,3 +17,8 @@ conda install python
 conda install flake8
 conda install ipython
 conda install -c r r
+
+# Add setup-env script used called by the homonymous git alias
+echo "Copying setup-env script for the homonymous git alias..."
+cp ./git/setup-env "$HOME/miniconda3/bin"
+chmod +x "$HOME/miniconda3/bin/setup-env"
