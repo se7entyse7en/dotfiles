@@ -3,7 +3,6 @@ import os
 import subprocess
 import sys
 
-
 GIT_IGNORE = """# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -115,7 +114,7 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- python=3.6.2=0
+- {python}
 prefix: /Users/se7entyse7en/miniconda3/envs/{project_name}
 """
 
@@ -124,10 +123,10 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- python=3.6.2=0
+- {python}
 # The following dependencies are for development only
-- flake8=3.3.0=py36_0
-- isort=4.2.15=py36_0
+- {flake8}
+- {isort}
 prefix: /Users/se7entyse7en/miniconda3/envs/{project_name}
 """
 
@@ -184,16 +183,48 @@ def git_add(path):
 
 
 def git_commit(msg):
-    subprocess.run('git commit -a -m'.split(' ') + [msg])
+    subprocess.run('git commit -m'.split(' ') + [msg])
+
+
+def get_conda_pkg(name, channel):
+    p = subprocess.run('conda env export'.split(' '),
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout = p.stdout.decode().strip()
+    return [x for x in stdout.split('\n')
+            if x.startswith('- {channel}::{name}'.format(
+                    channel=channel, name=name))][0][2:]
+
+def install_conda_pkg(name, channel):
+    subprocess.run(
+        'conda install -y -q -c {channel} {name}'.format(
+            channel=channel, name=name).split(' '),
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 if __name__ == '__main__':
+    print('Preparing environment...')
+
     p = subprocess.run('git rev-parse --show-toplevel'.split(' '),
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stderr = p.stderr.decode().strip()
     if stderr.startswith('fatal'):
         print(stderr, file=sys.stderr)
         exit(1)
+
+    if not os.environ.get('CONDA_DEFAULT_ENV'):
+        print('This command requires having a conda env activated',
+              file=sys.stderr)
+        exit(1)
+
+    print('Retrieving python version...')
+    python = get_conda_pkg('python', 'conda-forge')
+    print('Installing flake8...')
+    install_conda_pkg('flake8', 'conda-forge')
+    print('Installing isort...')
+    install_conda_pkg('isort', 'conda-forge')
+
+    flake8 = get_conda_pkg('flake8', 'conda-forge')
+    isort = get_conda_pkg('isort', 'conda-forge')
 
     root_dir = p.stdout.decode().strip()
     project_name = root_dir.split('/')[-1]
@@ -209,7 +240,14 @@ if __name__ == '__main__':
     ]:
         target_path = os.path.join(root_dir, target_file)
         with open(target_path, 'wb') as fout:
-            fout.write(body.format(project_name=project_name).encode())
+            fout.write(body.format(
+                project_name=project_name,
+                python=python,
+                flake8=flake8,
+                isort=isort
+            ).encode())
 
         git_add(target_path)
         git_commit(COMMIT_MSGS[target_file])
+
+    print('Environment ready!')
