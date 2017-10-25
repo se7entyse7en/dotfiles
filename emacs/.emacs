@@ -129,7 +129,14 @@
                                (setq indent-tabs-mode nil)))
              :config
 	     (elpy-enable)
-	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules)))
+	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
+	     ;; Permits using pdb.set_trace() when running tests in buffer
+	     (defun elpy-test-run (working-directory command &rest args)
+	       (let ((default-directory working-directory))
+		 (compile (mapconcat #'shell-quote-argument
+				     (cons command args)
+				     " ")
+			  t))))
 
 ;; Use isort and auto sort imports on save
 (use-package py-isort
@@ -177,6 +184,7 @@
 ;;-------;;
 ;; Git
 ;; Javascript
+;; Dockerfile
 ;; Octave
 ;; Julia
 ;; Ruby
