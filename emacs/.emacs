@@ -172,6 +172,14 @@
   )
 
 
+;;------------;;
+;; Dockerfile ;;
+;;------------;;
+(use-package dockerfile-mode
+  :init
+  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+
+
 ;;-------;;
 ;; Theme ;;
 ;;-------;;
@@ -184,7 +192,6 @@
 ;;-------;;
 ;; Git
 ;; Javascript
-;; Dockerfile
 ;; Octave
 ;; Julia
 ;; Ruby
