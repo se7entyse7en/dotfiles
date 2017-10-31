@@ -6,6 +6,7 @@ git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 # Add custom theme
 echo "Adding custom theme..."
+mkdir -p ~/.oh-my-zsh/custom/themes/
 cp ./zsh/se7entyse7en.zsh-theme ~/.oh-my-zsh/custom/themes/
 
 # Copy .zshrc file
