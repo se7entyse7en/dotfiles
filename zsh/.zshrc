@@ -1,6 +1,3 @@
-osascript -e "tell application \"Terminal\" to set background color of window 1 to {0,0,0}"
-osascript -e "tell application \"Terminal\" to set normal text color of window 1 to {65535,65535,65535}"
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
