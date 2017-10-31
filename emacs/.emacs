@@ -72,7 +72,11 @@
 ;; Binding for goto-line
 (global-set-key (kbd "M-g") 'goto-line)
 
+;; Automatically delete trailing whitespaces on before-save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Show matching parenthesis
+(add-hook 'prog-mode-hook 'show-paren-mode)
 
 
 ;;------------------;;
@@ -168,8 +172,7 @@
 (use-package ess
   :init
   (require 'ess-site)
-  (ess-toggle-underscore nil)
-  )
+  (ess-toggle-underscore nil))
 
 
 ;;------------;;
@@ -178,6 +181,14 @@
 (use-package dockerfile-mode
   :init
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+
+
+;;---------;;
+;; Rainbow ;;
+;;---------;;
+(use-package rainbow-mode
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-mode))
 
 
 ;;-------;;
