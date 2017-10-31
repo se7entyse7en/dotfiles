@@ -13,10 +13,10 @@ conda update conda -y
 
 # Make conda handle python and r environments
 echo "Installing some conda packages..."
-conda install python
-conda install flake8
-conda install ipython
-conda install -c r r
+conda install -y python
+conda install -y flake8
+conda install -y ipython
+conda install -y -c r r
 
 # Add setup-python-env script used called by the homonymous git alias
 echo "Copying setup-python-env script for the homonymous git alias..."
