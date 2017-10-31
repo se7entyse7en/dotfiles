@@ -130,6 +130,8 @@ dependencies:
 prefix: /Users/se7entyse7en/miniconda3/envs/{project_name}
 """
 
+DIR_LOCALS = '((nil . ((pyvenv-workon . "{project_name}"))))'
+
 ISORT_CFG = """[settings]
 not_skip=__init__.py
 force_single_line=True
@@ -171,6 +173,7 @@ COMMIT_MSGS = {
     '.gitignore': 'Added .gitignore',
     'environment.yaml': 'Added environment.yaml',
     'environment-dev.yaml': 'Added environment-dev.yaml',
+    '.dir-locals.el': 'Added .dir-locals.el',
     '.isort.cfg': 'Added isort configuration',
     '.flake8': 'Added flake8 configuration',
     'test.sh': 'Added command to run test',
@@ -233,6 +236,7 @@ if __name__ == '__main__':
             ('.gitignore', GIT_IGNORE),
             ('environment.yaml', ENVIRONMENT),
             ('environment-dev.yaml', ENVIRONMENT_DEV),
+            ('.dir-locals.el', DIR_LOCALS),
             ('.isort.cfg', ISORT_CFG),
             ('.flake8', FLAKE8),
             ('test.sh', TEST_COMMAND),
