@@ -10,6 +10,7 @@
         rebush = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git fetch && git checkout master && git reset --hard origin/master && git checkout $current_branch && git rebase master && git push origin $current_branch; }; f"
         fpush = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git push -f origin $current_branch; }; f"
         rebabort = "!f(){ git reflog | grep -v rebase | head -1 | sed -e \"s/^\\([[:alnum:]][[:alnum:]]*\\)\\(.*\\)/\\1/g\" | git reset --hard; }; f"
+        remote-sync = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git reset --hard origin/$current_branch; }; f"
         backup = "!f(){ current_branch=$(git rev-parse --abbrev-ref HEAD) && git checkout -b \"${current_branch}_tmp\" && git checkout $current_branch; }; f"
         publish-tag = "!f(){ git tag -a v\"$1\" -m 'version '\"$1\" && git push origin --tags; }; f"
 [core]
