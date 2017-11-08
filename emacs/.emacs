@@ -123,6 +123,17 @@
              (setq aw-background nil))
 
 
+;;-----;;
+;; Git ;;
+;;-----;;
+(use-package magit
+  :bind
+  ("C-x g" . magit-status)
+  ("C-c C-g b" . magit-blame)
+  :config
+  (add-hook 'after-save-hook 'magit-after-save-refresh-status))
+
+
 ;;--------;;
 ;; Python ;;
 ;;--------;;
@@ -201,7 +212,6 @@
 ;;-------;;
 ;; TODOs ;;
 ;;-------;;
-;; Git
 ;; Javascript
 ;; Octave
 ;; Julia
