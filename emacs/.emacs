@@ -174,7 +174,11 @@
 ;;----------;;
 ;; Markdown ;;
 ;;----------;;
-(use-package markdown-mode)
+(use-package markdown-mode
+             :init (add-hook 'markdown-mode-hook '(lambda ()
+			         (setq truncate-lines nil)
+				 (setq truncate-partial-width-windows nil)))
+	     )
 
 
 ;;---;;
