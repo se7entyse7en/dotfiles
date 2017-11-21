@@ -126,10 +126,58 @@
 ;;-----;;
 ;; Git ;;
 ;;-----;;
+;;------------------------------------------------;;
+;;                                                ;;
+;;          frame 1                  frame 2      ;;
+;;  ***********************     ****************  ;;
+;;  * window 1 * window 2 *     *    window3   *  ;;
+;;  *          *          *     *              *  ;;
+;;  *   file   *   file   *     * magit-status *  ;;
+;;  * of proj1 * of proj2 *     *              *  ;;
+;;  *          *          *     *              *  ;;
+;;  ***********************     ****************  ;;
+;;                                                ;;
+;;------------------------------------------------;;
+(defun magit-status-autorefresh (callee)
+  (interactive)
+  (let ((project-previous (magit-toplevel)))
+    (call-interactively callee)
+    (let ((project (magit-toplevel)))
+      (when (and project
+                 (not (equal project-previous project)))
+        (let ((status-win
+               (cl-some (lambda (b)
+                          (and (with-current-buffer b
+                                 (derived-mode-p 'magit-status-mode))
+                               (get-buffer-window b 'visible)))
+                        (buffer-list)))
+              (magit-display-buffer-noselect t)
+              (magit-display-buffer-function
+               (lambda (buffer)
+                 (display-buffer buffer '(display-buffer-same-window)))))
+          (when status-win
+            (with-selected-frame (window-frame status-win)
+              (with-selected-window status-win
+                (magit-status-internal project))))))))
+  )
+
+(defun my/other-window ()
+  (interactive)
+  (magit-status-autorefresh 'other-window)
+  )
+
+(defun my/other-ace-window ()
+  (interactive)
+  (magit-status-autorefresh 'ace-window)
+  )
+
+
 (use-package magit
   :bind
   ("C-x g" . magit-status)
   ("C-c C-g b" . magit-blame)
+  ("C-x o" . my/other-window)
+  ("M-o" . my/other-ace-window)
   :config
   (add-hook 'after-save-hook 'magit-after-save-refresh-status))
 
