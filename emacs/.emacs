@@ -182,6 +182,18 @@
   (add-hook 'after-save-hook 'magit-after-save-refresh-status))
 
 
+(use-package magithub
+  :after magit
+  :bind
+  ("C-c <C-m> c b" . magithub-comment-browse)
+  ("C-c <C-m> c n" . magithub-comment-new)
+  ("C-c <C-m> l a" . magithub-label-add)
+  ("C-c <C-m> l r" . magithub-label-remove)
+  :config
+  (setq epa-pinentry-mode 'loopback)
+  (magithub-feature-autoinject t))
+
+
 ;;--------;;
 ;; Python ;;
 ;;--------;;
@@ -238,6 +250,38 @@
   (ess-toggle-underscore nil))
 
 
+;;------;;
+;; JSON ;;
+;;------;;
+(use-package json-mode)
+
+
+;;------------;;
+;; Javascript ;;
+;;------------;;
+(use-package js2-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+  )
+
+
+;;----------;;
+;; Web mode ;;
+;;----------;;
+(use-package web-mode
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.hbs\\'" . web-mode))
+  :config
+  (setq web-mode-engines-alist
+	'(("django"    . "/viralize-web/.*\\.html\\'"))
+	)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  )
+
+
 ;;------------;;
 ;; Dockerfile ;;
 ;;------------;;
@@ -264,11 +308,7 @@
 ;;-------;;
 ;; TODOs ;;
 ;;-------;;
-;; Javascript
 ;; Octave
 ;; Julia
 ;; Ruby
-;; HTML
-;; CSS
-;; Json
 ;; Latex
