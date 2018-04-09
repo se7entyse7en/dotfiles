@@ -78,6 +78,9 @@
 ;; Show matching parenthesis
 (add-hook 'prog-mode-hook 'show-paren-mode)
 
+;; Avoid interpretig C-m as RET
+(define-key input-decode-map [?\C-m] [C-m])
+
 ;; Always use spaces for indent
 (setq-default indent-tabs-mode nil)
 
