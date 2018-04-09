@@ -185,7 +185,8 @@
   ("C-x o" . my/other-window)
   ("M-o" . my/other-ace-window)
   :config
-  (add-hook 'after-save-hook 'magit-after-save-refresh-status))
+  (add-hook 'after-save-hook 'magit-after-save-refresh-status)
+  (setq magit-process-finish-apply-ansi-colors t))
 
 
 (use-package magithub
