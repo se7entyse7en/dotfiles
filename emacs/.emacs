@@ -78,6 +78,12 @@
 ;; Show matching parenthesis
 (add-hook 'prog-mode-hook 'show-paren-mode)
 
+;; Avoid interpretig C-m as RET
+(define-key input-decode-map [?\C-m] [C-m])
+
+;; Always use spaces for indent
+(setq-default indent-tabs-mode nil)
+
 
 ;;------------------;;
 ;; Windows & Frames ;;
@@ -113,14 +119,12 @@
 ;;------------;;
 ;; Simplify navigation of files for a project
 (use-package projectile)
-(use-package counsel-projectile
-             :bind ("C-x F" . counsel-projectile-find-file))
+(use-package counsel-projectile)
 ;; Simplify navigation between buffers
 (use-package ace-window
-             :bind ("M-o" . ace-window)
-             :config
-             (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-             (setq aw-background nil))
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (setq aw-background nil))
 
 
 ;;-----;;
@@ -140,30 +144,41 @@
 ;;------------------------------------------------;;
 (defun magit-status-autorefresh (callee)
   (interactive)
-  (let ((project-previous (magit-toplevel)))
-    (call-interactively callee)
-    (let ((project (magit-toplevel)))
-      (when (and project
-                 (not (equal project-previous project)))
-        (let ((status-win
-               (cl-some (lambda (b)
-                          (and (with-current-buffer b
-                                 (derived-mode-p 'magit-status-mode))
-                               (get-buffer-window b 'visible)))
-                        (buffer-list)))
-              (magit-display-buffer-noselect t)
-              (magit-display-buffer-function
-               (lambda (buffer)
-                 (display-buffer buffer '(display-buffer-same-window)))))
-          (when status-win
-            (with-selected-frame (window-frame status-win)
-              (with-selected-window status-win
-                (magit-status-internal project))))))))
+  (if (fboundp 'magit-toplevel)
+      (let ((project-previous (magit-toplevel)))
+	(call-interactively callee)
+	(let ((project (magit-toplevel)))
+	  (when (and project (not (equal project-previous project)))
+	    (let ((status-win
+		   (cl-some (lambda (b)
+			      (and (with-current-buffer b
+				     (derived-mode-p 'magit-status-mode))
+				   (get-buffer-window b 'visible)))
+			    (buffer-list)))
+		  (magit-display-buffer-noselect t)
+		  (magit-display-buffer-function
+		   (lambda (buffer)
+		     (display-buffer buffer '(display-buffer-same-window)))))
+	      (when status-win
+		(with-selected-frame (window-frame status-win)
+		  (with-selected-window status-win
+		    (magit-status-internal project))))))))
+    (call-interactively callee))
   )
 
 (defun my/other-window ()
   (interactive)
   (magit-status-autorefresh 'other-window)
+  )
+
+(defun my/other-counsel-projectile-find-file ()
+  (interactive)
+  (magit-status-autorefresh 'counsel-projectile-find-file)
+  )
+
+(defun my/other-find-file ()
+  (interactive)
+  (magit-status-autorefresh 'find-file)
   )
 
 (defun my/other-ace-window ()
@@ -177,9 +192,12 @@
   ("C-x g" . magit-status)
   ("C-c C-g b" . magit-blame)
   ("C-x o" . my/other-window)
+  ("C-x F" . my/other-counsel-projectile-find-file)
+  ("C-x C-f" . my/other-find-file)
   ("M-o" . my/other-ace-window)
   :config
-  (add-hook 'after-save-hook 'magit-after-save-refresh-status))
+  (add-hook 'after-save-hook 'magit-after-save-refresh-status)
+  (setq magit-process-finish-apply-ansi-colors t))
 
 
 (use-package magithub
@@ -199,11 +217,10 @@
 ;;--------;;
 ;; Use elpy in python mode
 (use-package elpy
-             :init (add-hook 'python-mode-hook '(lambda ()
-                               (setq python-indent-offset 4)
-                               (setq indent-tabs-mode nil)))
+             :init (add-hook 'python-mode-hook '(setq python-indent-offset 4))
              :config
 	     (elpy-enable)
+	     (setq elpy-test-django-with-manage t)
 	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
 	     ;; Permits using pdb.set_trace() when running tests in buffer
 	     (defun elpy-test-run (working-directory command &rest args)
