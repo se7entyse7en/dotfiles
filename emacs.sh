@@ -8,6 +8,9 @@ mkdir ~/.emacs.d
 echo "Copying ~/.emacs.d directory..."
 cp -R ./emacs/.emacs.d ~/
 
+echo "Copying .authinfo.gpg file..."
+cp ./emacs/.authinfo.gpg ~/
+
 # Install elpy dependencies
 echo "Installing python dependencies for elpy..."
 pip install jedi
