@@ -204,6 +204,7 @@
                                (setq indent-tabs-mode nil)))
              :config
 	     (elpy-enable)
+	     (setq elpy-test-django-with-manage t)
 	     (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
 	     ;; Permits using pdb.set_trace() when running tests in buffer
 	     (defun elpy-test-run (working-directory command &rest args)
