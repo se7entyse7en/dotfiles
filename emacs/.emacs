@@ -294,6 +294,15 @@
   )
 
 
+;;-----;;
+;; JSX ;;
+;;-----;;
+(use-package rjsx-mode
+  :bind
+  ("C-c C-t" . my/npm-run-test)
+  )
+
+
 ;;----------;;
 ;; Web mode ;;
 ;;----------;;
