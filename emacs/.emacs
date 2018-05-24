@@ -276,7 +276,18 @@
 ;;------------;;
 ;; Javascript ;;
 ;;------------;;
+(defun my/npm-run-test ()
+  """Execute npm tests for function/module under cursor"
+  (interactive)
+  (let* ((projdir (locate-dominating-file default-directory "node_modules"))
+         (default-directory projdir)
+         (cmd (combine-and-quote-strings (list "npm" "run" "test" buffer-file-name))))
+    (compile cmd))
+  )
+
 (use-package js2-mode
+  :bind
+  ("C-c C-t" . my/npm-run-test)
   :init
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
