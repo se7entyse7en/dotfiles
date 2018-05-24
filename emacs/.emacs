@@ -217,7 +217,8 @@
 ;;--------;;
 ;; Use elpy in python mode
 (use-package elpy
-             :init (add-hook 'python-mode-hook '(setq python-indent-offset 4))
+             :init (add-hook 'python-mode-hook '(lambda ()
+                                                  (setq python-indent-offset 4)))
              :config
 	     (elpy-enable)
 	     (setq elpy-test-django-with-manage t)
