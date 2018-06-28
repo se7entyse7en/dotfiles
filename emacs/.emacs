@@ -249,6 +249,17 @@
   (pyvenv-tracking-mode 1))
 
 
+;;-------;;
+;; Scala ;;
+;;-------;;
+(use-package ensime
+  :ensure t
+  :pin melpa-stable
+  :init
+  (setq ensime-startup-notification nil)
+  )
+
+
 ;;------;;
 ;; YAML ;;
 ;;------;;
