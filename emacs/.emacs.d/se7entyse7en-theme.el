@@ -7,7 +7,7 @@
   '(mode-line ((t (:foreground "#8791de" :background "#1a2432"))))
   '(region ((t (:background "#16a085"))))
   '(font-lock-builtin-face ((t (:foreground "#e23262"))))
-  '(font-lock-comment-face ((t (:foreground "##f1c40f"))))
+  '(font-lock-comment-face ((t (:foreground "#f1c40f"))))
   '(font-lock-function-name-face ((t (:foreground "#f39c12"))))
   '(font-lock-keyword-face ((t (:foreground "#9b59b6"))))
   '(font-lock-string-face ((t (:foreground "#27ae60"))))
