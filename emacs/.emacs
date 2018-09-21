@@ -132,6 +132,14 @@
   (setq aw-background nil))
 
 
+;;-----------;;
+;; Multiterm ;;
+;;-----------;;
+(use-package multi-term
+  :config
+  (setq multi-term-program "/bin/zsh"))
+
+
 ;;-----;;
 ;; Git ;;
 ;;-----;;
