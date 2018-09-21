@@ -203,7 +203,9 @@
   ("M-o" . my/other-ace-window)
   :config
   (add-hook 'after-save-hook 'magit-after-save-refresh-status)
-  (setq magit-process-finish-apply-ansi-colors t))
+  (setq magit-process-finish-apply-ansi-colors t)
+  (setq magit-log-section-commit-count 30)
+  )
 
 
 (use-package magithub
