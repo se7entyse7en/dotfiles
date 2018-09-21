@@ -127,6 +127,7 @@
 ;; Simplify navigation between buffers
 (use-package ace-window
   :config
+  (setq aw-scope 'frame)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-background nil))
 
