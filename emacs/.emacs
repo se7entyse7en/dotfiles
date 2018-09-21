@@ -7,14 +7,12 @@
 (setq package-enable-at-startup nil
       package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
-        ("marmalade" . "https://marmalade-repo.org/packages/")
 	("melpa-stable" . "https://stable.melpa.org/packages/")
         ("melpa" . "http://melpa.org/packages/"))
       package-archive-priorities
       '(("gnu" . 10)
-        ("marmalade" . 20)
-	("melpa-stable" . 30)
-	("melpa" . 40))
+	("melpa-stable" . 20)
+	("melpa" . 30))
       )
 (package-initialize)
 
@@ -129,8 +127,17 @@
 ;; Simplify navigation between buffers
 (use-package ace-window
   :config
+  (setq aw-scope 'frame)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   (setq aw-background nil))
+
+
+;;-----------;;
+;; Multiterm ;;
+;;-----------;;
+(use-package multi-term
+  :config
+  (setq multi-term-program "/bin/zsh"))
 
 
 ;;-----;;
@@ -203,7 +210,9 @@
   ("M-o" . my/other-ace-window)
   :config
   (add-hook 'after-save-hook 'magit-after-save-refresh-status)
-  (setq magit-process-finish-apply-ansi-colors t))
+  (setq magit-process-finish-apply-ansi-colors t)
+  (setq magit-log-section-commit-count 30)
+  )
 
 
 (use-package magithub
