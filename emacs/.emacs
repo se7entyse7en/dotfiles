@@ -184,6 +184,11 @@
   (magit-status-autorefresh 'other-window)
   )
 
+(defun my/other-frame ()
+  (interactive)
+  (magit-status-autorefresh 'other-frame)
+  )
+
 (defun my/other-counsel-projectile-find-file ()
   (interactive)
   (magit-status-autorefresh 'counsel-projectile-find-file)
@@ -205,13 +210,14 @@
   ("C-x g" . magit-status)
   ("C-c C-g b" . magit-blame)
   ("C-x o" . my/other-window)
+  ("C-x 5 o" . my/other-frame)
   ("C-x F" . my/other-counsel-projectile-find-file)
   ("C-x C-f" . my/other-find-file)
   ("M-o" . my/other-ace-window)
   :config
   (add-hook 'after-save-hook 'magit-after-save-refresh-status)
   (setq magit-process-finish-apply-ansi-colors t)
-  (setq magit-log-section-commit-count 30)
+  (setq magit-log-section-commit-count 50)
   )
 
 
@@ -273,6 +279,12 @@
 ;; YAML ;;
 ;;------;;
 (use-package yaml-mode)
+
+
+;;--------;;
+;; Groovy ;;
+;;--------;;
+(use-package groovy-mode)
 
 
 ;;----------;;
@@ -367,6 +379,7 @@
 ;;-------;;
 ;; Load custom theme
 (load-theme 'se7entyse7en t)
+(set-face-attribute 'default nil :height 110)
 
 
 ;;-------;;
@@ -376,3 +389,18 @@
 ;; Julia
 ;; Ruby
 ;; Latex
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js-indent-level 2)
+ '(package-selected-packages
+   (quote
+    (groovy-emacs-mode groovy-mode multi-term magithub magit yaml-mode web-mode use-package rjsx-mode rainbow-mode py-isort markdown-mode json-mode exec-path-from-shell ess ensime elpy dockerfile-mode counsel-projectile ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
