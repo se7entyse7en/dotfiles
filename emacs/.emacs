@@ -184,6 +184,11 @@
   (magit-status-autorefresh 'other-window)
   )
 
+(defun my/other-frame ()
+  (interactive)
+  (magit-status-autorefresh 'other-frame)
+  )
+
 (defun my/other-counsel-projectile-find-file ()
   (interactive)
   (magit-status-autorefresh 'counsel-projectile-find-file)
@@ -205,13 +210,14 @@
   ("C-x g" . magit-status)
   ("C-c C-g b" . magit-blame)
   ("C-x o" . my/other-window)
+  ("C-x 5 o" . my/other-frame)
   ("C-x F" . my/other-counsel-projectile-find-file)
   ("C-x C-f" . my/other-find-file)
   ("M-o" . my/other-ace-window)
   :config
   (add-hook 'after-save-hook 'magit-after-save-refresh-status)
   (setq magit-process-finish-apply-ansi-colors t)
-  (setq magit-log-section-commit-count 30)
+  (setq magit-log-section-commit-count 50)
   )
 
 
@@ -224,6 +230,7 @@
   ("C-c <C-m> l r" . magithub-label-remove)
   :config
   (setq epa-pinentry-mode 'loopback)
+  (setq auth-sources '("~/.authinfo.gpg"))
   (magithub-feature-autoinject t))
 
 
@@ -273,6 +280,12 @@
 ;; YAML ;;
 ;;------;;
 (use-package yaml-mode)
+
+
+;;--------;;
+;; Groovy ;;
+;;--------;;
+(use-package groovy-mode)
 
 
 ;;----------;;
@@ -367,6 +380,7 @@
 ;;-------;;
 ;; Load custom theme
 (load-theme 'se7entyse7en t)
+(set-face-attribute 'default nil :height 110)
 
 
 ;;-------;;
@@ -376,3 +390,4 @@
 ;; Julia
 ;; Ruby
 ;; Latex
+;; Go
