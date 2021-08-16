@@ -20,10 +20,10 @@ download_dotfiles() {
 download_dotfiles
 
 ./keys.sh
+./xcode.sh
 ./brew.sh
 ./zsh.sh
 ./git.sh
-./xcode.sh
 ./conda.sh
 ./emacs.sh
 
