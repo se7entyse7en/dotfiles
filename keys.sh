@@ -19,3 +19,6 @@ if [ -z $key_already_present ]; then
 else
     echo "Key pair already present."
 fi
+
+echo "Copying known_hosts file..."
+cp ./known_hosts ~/.ssh/
