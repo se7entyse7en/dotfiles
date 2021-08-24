@@ -1,0 +1,24 @@
+# GNU core utilities
+coreutils
+moreutils
+# GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
+findutils
+# GNU `sed` `g`-prefixed
+gnu-sed
+wget
+htop
+jq
+ack
+telnet
+watch
+git
+node
+nvm
+python
+go
+kubernetes-cli
+rustup
+zsh
+zsh-completions
+starship
+gh

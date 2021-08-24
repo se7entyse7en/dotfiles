@@ -1,0 +1,13 @@
+font-fira-code
+hyper
+emacs
+docker
+slack
+zoom
+google-chrome
+toggl-track
+adobe-acrobat-reader
+notion
+bitwarden
+loom
+rectangle

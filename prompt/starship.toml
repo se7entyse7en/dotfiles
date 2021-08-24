@@ -1,0 +1,77 @@
+add_newline = true
+command_timeout = 1_000
+
+format = """
+[┌─>](bold #2980b9) \\[$time\\]( [───](bold #2980b9) \\[$cmd_duration\\])( [───](bold #2980b9) $terraform$golang$nodejs$python$rust)
+[│](bold #2980b9) $character$username$hostname$directory$git_branch$git_commit$git_state$git_status
+[└─>](bold #2980b9) [\\$](bold) """
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+
+[line_break]
+disabled = false
+
+[username]
+show_always = true
+format = "[$user]($style) @ "
+style_user = "#3498db bold"
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) in (red)"
+
+[directory]
+truncation_length = 5
+format = "[$read_only]($read_only_style)[$path]($style) "
+truncation_symbol = "…/"
+
+[cmd_duration]
+min_time = 3_000
+format = "took [$duration]($style)"
+
+[golang]
+symbol = "🐹"
+version_format = "v${major}.${minor}"
+format = '[](#2980b9 bg:none inverted)[\[go:$symbol|($version)\]]($style)[](#2980b9 bg:none)'
+style = "white bold bg:#2980b9"
+
+[nodejs]
+symbol = "⬡ "
+version_format = "v${major}.${minor}"
+format = '[](#f1c40f bg:none inverted)[\[js:$symbol|($version)\]]($style)[](#f1c40f bg:none)'
+style = "black bold bg:#f1c40f"
+
+[python]
+symbol = "🐍"
+version_format = "v${major}.${minor}"
+format = '[](#16a085 bg:none inverted)[\[py:${symbol}${pyenv_prefix}|(${version})(\($virtualenv\))\]]($style)[](#16a085 bg:none)'
+style = "white bold bg:#16a085"
+
+[rust]
+symbol = "🦀"
+version_format = "v${major}.${minor}"
+format = '[](#e74c3c bg:none inverted)[\[rs:$symbol|($version)\]]($style)[](#e74c3c bg:none)'
+style = "white bold bg:#e74c3c"
+
+[kubernetes]
+disabled = false
+
+[terraform]
+format = "[$symbol$workspace]($style) "
+
+[git_branch]
+
+[git_commit]
+style = "bold yellow"
+
+[git_state]
+
+[git_status]
+
+[gcloud]
+
+[time]
+disabled = false
+format = "[$time]($style)"

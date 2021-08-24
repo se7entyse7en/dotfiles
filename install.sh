@@ -4,27 +4,30 @@ download_dotfiles() {
     DOTFILES_TARBALL_URL="https://github.com/$GITHUB_REPOSITORY/tarball/master"
 
     # Download and extract dotfiles repo into a temporary directory
-    tmpFile="/tmp/dotfiles.tar.gz"
-    echo "Downloading $DOTFILES_TARBALL_URL into $tmpFile..."
-    curl -LsSo "$tmpFile" "$DOTFILES_TARBALL_URL" &> /dev/null
+    tmp_file="/tmp/dotfiles.tar.gz"
+    echo "Downloading $DOTFILES_TARBALL_URL into $tmp_file..."
+    curl -LsSo "$tmp_file" "$DOTFILES_TARBALL_URL" &> /dev/null
 
-    outputDir="/tmp/dotfiles"
-    mkdir "$outputDir"
-    echo "Extracting $tmpFile into $outputDir..."
-    tar -zxf "$tmpFile" --strip-components 1 -C "$outputDir"
+    output_dir="/tmp/dotfiles"
+    mkdir "$output_dir"
+    echo "Extracting $tmp_file into $output_dir..."
+    tar -zxf "$tmp_file" --strip-components 1 -C "$output_dir"
 
-    echo "Entering $outputDir..."
-    cd "$outputDir"
+    echo "Entering $output_dir..."
+    cd "$output_dir"
 }
 
 download_dotfiles
 
 ./keys.sh
+./tokens.sh
+./xcode.sh
 ./brew.sh
 ./zsh.sh
 ./git.sh
-./xcode.sh
-./conda.sh
 ./emacs.sh
+./prompt.sh
+./github.sh
 
-env zsh
+echo "Opening Hyper and closing Terminal..."
+hyper && ps aux | grep Terminal | grep -v grep | tr -s ' ' | cut -f2 -d ' ' | xargs kill -9
