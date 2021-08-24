@@ -25,5 +25,6 @@ download_dotfiles
 ./zsh.sh
 ./git.sh
 ./emacs.sh
+./prompt.sh
 
 env zsh
