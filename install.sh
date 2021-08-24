@@ -27,4 +27,5 @@ download_dotfiles
 ./emacs.sh
 ./prompt.sh
 
-env zsh
+echo "Opening Hyper and closing Terminal..."
+hyper && ps aux | grep Terminal | grep -v grep | tr -s ' ' | cut -f2 -d ' ' | xargs kill -9
