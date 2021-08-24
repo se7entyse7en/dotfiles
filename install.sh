@@ -27,6 +27,7 @@ download_dotfiles
 ./git.sh
 ./emacs.sh
 ./prompt.sh
+./github.sh
 
 echo "Opening Hyper and closing Terminal..."
 hyper && ps aux | grep Terminal | grep -v grep | tr -s ' ' | cut -f2 -d ' ' | xargs kill -9
