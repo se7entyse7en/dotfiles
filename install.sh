@@ -11,7 +11,7 @@ download_dotfiles() {
     curl -LsSo "$tmp_file" "$DOTFILES_TARBALL_URL" &> /dev/null
 
     output_dir="/tmp/dotfiles"
-    mkdir "$output_dir"
+    rm -rf "$output_dir" && mkdir "$output_dir"
     echo "Extracting $tmp_file into $output_dir..."
     tar -zxf "$tmp_file" --strip-components 1 -C "$output_dir"
 
