@@ -1,5 +1,3 @@
-set -e
-
 are_xcode_command_line_tools_installed() {
     xcode-select --print-path &> /dev/null
 }
