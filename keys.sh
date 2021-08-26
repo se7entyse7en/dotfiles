@@ -1,3 +1,5 @@
+set -e
+
 # Check if a key is already present
 echo "Checking if a key pair is already present..."
 mkdir -p ~/.ssh
