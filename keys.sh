@@ -1,6 +1,7 @@
 # Check if a key is already present
 echo "Checking if a key pair is already present..."
-key_already_present=$(ls ~/.ssh/ | grep "id_rsa");
+mkdir -p ~/.ssh
+key_already_present=$(ls ~/.ssh/ | grep "id_rsa")
 if [ -z $key_already_present ]; then
     echo "Key pair not present."
     # Copy key pair from the inserted path

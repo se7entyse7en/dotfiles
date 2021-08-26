@@ -11,3 +11,4 @@ notion
 bitwarden
 loom
 rectangle
+yed

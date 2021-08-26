@@ -1,3 +1,5 @@
+set -e
+
 download_dotfiles() {
     GITHUB_REPOSITORY="se7entyse7en/dotfiles"
     DOTFILES_ORIGIN="git@github.com:$GITHUB_REPOSITORY.git"
