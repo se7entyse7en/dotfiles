@@ -1,3 +1,5 @@
+set -e
+
 github_token_present() {
     echo $(ls ~/.tokens/github | grep "dotfiles.txt")
 }

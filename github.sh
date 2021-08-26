@@ -1,3 +1,5 @@
+set -e
+
 echo "Authenticating with Github token..."
 gh auth login --with-token < ~/.tokens/github/dotfiles.txt
 

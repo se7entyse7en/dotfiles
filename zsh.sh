@@ -1,4 +1,4 @@
-# Make zsh the default shell
+set -e
 
 # Install oh-my-zsh
 echo "Insalling oh-my-zsh..."

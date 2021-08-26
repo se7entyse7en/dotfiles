@@ -1,3 +1,5 @@
+set -e
+
 # Configure emacs
 echo "Copying .emacs file..."
 cp ./emacs/.emacs ~/

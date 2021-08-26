@@ -1,3 +1,5 @@
+set -e
+
 # Install Homebrew if not present
 echo "Checking if Homebrew already present..."
 if ! which -s brew; then
