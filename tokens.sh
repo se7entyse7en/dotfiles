@@ -12,7 +12,7 @@ if [ -z "$(github_token_present)" ]; then
         echo "Create a file named 'dotfiles.txt' in ~/.tokens/github and press 'Enter'"
         read
     done
-    echo "Token file created."
+    echo "Token file found."
 else
     echo "Token already present."
 fi
