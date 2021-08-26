@@ -16,7 +16,8 @@ node
 nvm
 python
 go
-kubernetes-cli
+terraform
+helm
 rustup
 zsh
 zsh-completions
