@@ -3,7 +3,7 @@ echo "Checking if Homebrew already present..."
 if ! which -s brew; then
     # Install Homebrew
     echo "Downloading and installing Homebrew..."
-    yes | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # Make sure we're using the latest Homebrew
