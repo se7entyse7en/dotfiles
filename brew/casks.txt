@@ -2,7 +2,6 @@ font-fira-code
 hyper
 emacs
 docker
-google-cloud-sdk
 slack
 zoom
 google-chrome
