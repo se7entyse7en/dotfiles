@@ -2,11 +2,11 @@ set -e
 
 ZSH=${ZSH:-~/.oh-my-zsh}
 if [ -d "$ZSH" ]; then
+    echo "oh-my-zsh already installed"
+else
     # Install oh-my-zsh
     echo "Insalling oh-my-zsh..."
     KEEP_ZSHRC=yes CHSH=no RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-    echo "oh-my-zsh already installed"
 fi
 
 # Copy .zshrc file
