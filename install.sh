@@ -25,9 +25,9 @@ download_dotfiles
 ./tokens.sh
 ./xcode.sh
 ./brew.sh
-./google-cloud-sdk.sh
 ./zsh.sh
 ./git.sh
+./google-cloud-sdk.sh
 ./emacs.sh
 ./prompt.sh
 ./github.sh
