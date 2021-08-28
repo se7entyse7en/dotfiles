@@ -3,7 +3,7 @@ set -e
 echo "Ensuring existence of ~/.ssh directory..."
 mkdir -p ~/.ssh
 
-key_already_present=$(ls ~/.ssh/ | grep "id_rsa")
+key_already_present=$(ls ~/.ssh/ | grep "id_rsa" || true)
 if [ -z "$key_already_present" ]; then
     echo "Key pair not present."
     while [ -z "$key_path" ]; do
