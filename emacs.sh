@@ -4,8 +4,8 @@ set -e
 echo "Copying .emacs file..."
 cp ./emacs/.emacs ~/
 
-echo "Creating ~/.emacs.d directory..."
-mkdir ~/.emacs.d
+echo "Ensuring existence of ~/.emacs.d directory..."
+mkdir -p ~/.emacs.d
 
 echo "Copying ~/.emacs.d directory..."
 cp -R ./emacs/.emacs.d ~/
