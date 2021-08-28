@@ -12,9 +12,3 @@ cp -R ./emacs/.emacs.d ~/
 
 echo "Copying .authinfo.gpg file..."
 cp ./emacs/.authinfo.gpg ~/
-
-# Install elpy dependencies
-echo "Installing python dependencies for elpy..."
-pip install jedi
-pip install flake8
-pip install importmagic
