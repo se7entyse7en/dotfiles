@@ -2,7 +2,7 @@ set -e
 
 # Install oh-my-zsh
 echo "Insalling oh-my-zsh..."
-RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+KEEP_ZSHRC=yes CHSH=no RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Copy .zshrc file
 echo "Copying .zshrc configuration file..."
