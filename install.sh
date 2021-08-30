@@ -19,6 +19,9 @@ download_dotfiles() {
     cd "$output_dir"
 }
 
+echo "Disabling gatekeeper..."
+sudo spctl --master-disable
+
 download_dotfiles
 
 ./keys.sh
