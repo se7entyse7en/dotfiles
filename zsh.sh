@@ -12,6 +12,7 @@ fi
 # Copy .zshrc file
 echo "Copying .zshrc configuration file..."
 cp ./zsh/.zshrc ~/.zshrc
+chmod -R go-w '/usr/local/share/zsh'
 
 # Setting brew's zsh as default shell
 zsh=$(brew --prefix)/bin/zsh
