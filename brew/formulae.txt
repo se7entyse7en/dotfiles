@@ -5,6 +5,7 @@ moreutils
 findutils
 # GNU `sed` `g`-prefixed
 gnu-sed
+tree
 wget
 htop
 jq
