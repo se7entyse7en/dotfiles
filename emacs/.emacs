@@ -288,19 +288,20 @@
 ;;------;;
 ;; Rust ;;
 ;;------;;
+(use-package cargo
+  :ensure t
+  :pin melpa)
+
 (use-package rust-mode
   :ensure t
   :pin melpa
-  :init
-  (add-hook 'rust-mode-hook (lambda () (setq indent-tabs-mode nil)))
-  (setq rust-format-on-save t)
-  (add-hook 'after-save-hook 'rust-check)
-  )
-
-(use-package cargo
-  :ensure t
-  :pin melpa
-  :init
+  :after (cargo)
+  :config
+  (add-hook 'rust-mode-hook (lambda ()
+                              (setq indent-tabs-mode nil)
+                              (setq rust-format-on-save t)
+                              (add-hook 'after-save-hook 'rust-check nil 'make-it-local)
+                              ))
   (add-hook 'rust-mode-hook 'cargo-minor-mode)
   )
 
