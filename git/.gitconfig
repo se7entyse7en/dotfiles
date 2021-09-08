@@ -9,5 +9,7 @@
 [core]
         editor = emacs -nw
         excludesfile = ~/.gitignore_global
+[init]
+	defaultbranch = master
 [help]
         autocorrect = 1
