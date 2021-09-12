@@ -11,4 +11,4 @@ echo "Installing gcloud..."
 /tmp/google-cloud-sdk/install.sh --rc-path ~/.zshrc --path-update true --command-completion true --bash-completion true --install-python false -q
 
 echo "Installing gcloud components..."
-yes | /Users/se7entyse7en/google-cloud-sdk/bin/gcloud components install core gsutil bq kubectl docker-credential-gcr cloud_sql_proxy
+yes | /tmp/google-cloud-sdk/bin/gcloud components install core gsutil bq kubectl docker-credential-gcr cloud_sql_proxy
