@@ -5,10 +5,13 @@ GCLOUD_SDK_TARBALL_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloa
 out="/Users/se7entyse7en/google-cloud-sdk.tar.gz"
 echo "Downloading gcloud into $out..."
 curl -LsSo "$out" "$GCLOUD_SDK_TARBALL_URL" &> /dev/null
-tar -zxf "$out" -C /tmp
+tar -zxf "$out" -C /usr/local/opt
+rm ${out}
+
+ln -s /usr/local/opt/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
 
 echo "Installing gcloud..."
-/tmp/google-cloud-sdk/install.sh --rc-path ~/.zshrc --path-update true --command-completion true --bash-completion true --install-python false -q
+/usr/local/opt/google-cloud-sdk/install.sh --rc-path ~/.zshrc --path-update true --command-completion true --bash-completion true --install-python false -q
 
 echo "Installing gcloud components..."
-yes | /tmp/google-cloud-sdk/bin/gcloud components install core gsutil bq kubectl docker-credential-gcr cloud_sql_proxy
+yes | /usr/local/bin/gcloud components install core gsutil bq kubectl docker-credential-gcr cloud_sql_proxy
