@@ -16,7 +16,6 @@
       )
 (package-initialize)
 
-
 ;;-------------;;
 ;; Use-package ;;
 ;;-------------;;
@@ -244,30 +243,12 @@
 (use-package poetry
   :ensure t)
 
-;; Use elpy in python mode
-(use-package elpy
-  :init
-  (add-hook 'python-mode-hook '(lambda ()
-                                 (setq python-indent-offset 4)))
-  (add-hook 'before-save-hook 'elpy-format-code)
-  :config
-  (elpy-enable)
-  (setq elpy-test-django-with-manage t)
-  (setq elpy-modules (delq 'elpy-module-highlight-indentation elpy-modules))
-  (setq elpy-rpc-virtualenv-path 'current)
-  ;; Permits using pdb.set_trace() when running tests in buffer
-  (defun elpy-test-run (working-directory command &rest args)
-    (let ((default-directory working-directory))
-      (compile (mapconcat #'shell-quote-argument
-                          (cons command args)
-                          " ")
-               t))))
-
 ;; Use isort and auto sort imports on save
 (use-package py-isort
   :init (add-hook 'before-save-hook 'py-isort-before-save))
 
 ;; Use pyenv to activate the correct conda environment
+;; TODO: How to support conda, virtual-env, poetry
 (use-package pyvenv
   :init
   (setenv "WORKON_HOME" "/Users/se7entyse7en/miniconda3/envs")
@@ -332,26 +313,6 @@
   (setq lsp-eldoc-render-all t)
   (setq lsp-gopls-complete-unimported t))
 
-(use-package lsp-mode
-  :ensure t
-  :commands (lsp lsp-deferred)
-  :config (defun lsp-go-install-save-hooks ()
-            (add-hook 'before-save-hook #'lsp-format-buffer t t)
-            (add-hook 'before-save-hook #'lsp-organize-imports t t))
-  :hook ((go-mode . lsp-deferred)
-         (go-mode . lsp-go-install-save-hooks)))
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :init
-  :config (setq lsp-ui-doc-enable nil
-                lsp-ui-peek-enable t
-                lsp-ui-sideline-enable t
-                lsp-ui-imenu-enable t
-                lsp-ui-flycheck-enable t)
-  )
-
 (use-package company
   :ensure t
   :config
@@ -366,51 +327,6 @@
   :ensure t
   :commands yas-minor-mode
   :hook (go-mode . yas-minor-mode))
-
-;;----------;;
-;; Flycheck ;;
-;;----------;;
-(defun my/use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(defun eslint-fix-file ()
-  (interactive)
-  (message "eslint --fixing the file" (buffer-file-name))
-  (shell-command (concat "eslint --fix " (buffer-file-name))))
-
-(defun eslint-fix-file-and-revert ()
-  (interactive)
-  (eslint-fix-file)
-  (revert-buffer t t))
-
-
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode)
-  (setq-default flycheck-disabled-checkers
-                (append flycheck-disabled-checkers
-                        '(javascript-jshint)))
-  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
-  (flycheck-add-mode 'javascript-eslint 'js2-mode)
-  (setq flycheck-checkers '(javascript-eslint))
-  (setq-default flycheck-temp-prefix ".flycheck")
-  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
-  (add-hook 'rjsx-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
-  )
-
 
 ;;----------;;
 ;; Protobuf ;;
@@ -469,38 +385,6 @@
 (use-package terraform-mode)
 
 
-;;------------;;
-;; Javascript ;;
-;;------------;;
-(defun my/npm-run-test ()
-  """Execute npm tests for function/module under cursor"
-  (interactive)
-  (let* ((projdir (locate-dominating-file default-directory "node_modules"))
-         (default-directory projdir)
-         (cmd (combine-and-quote-strings (list "npm" "run" "test" buffer-file-name))))
-    (compile cmd))
-  )
-
-(use-package js2-mode
-  :bind
-  ("C-c C-t" . my/npm-run-test)
-  :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
-  )
-
-
-;;-----;;
-;; JSX ;;
-;;-----;;
-(use-package rjsx-mode
-  :bind
-  ("C-c C-t" . my/npm-run-test)
-  :config
-  (setq js-indent-level 2)
-  )
-
-
 ;;----------;;
 ;; Web mode ;;
 ;;----------;;
@@ -529,6 +413,99 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-mode))
 
+;;----------;;
+;; Flycheck ;;
+;;----------;;
+(use-package flycheck
+  :init (global-flycheck-mode))
+
+;;-----------------;;
+;; JS/JSX - TS/TSX ;;
+;;-----------------;;
+(use-package add-node-modules-path)
+(use-package prettier-js)
+
+(use-package js
+  :defines
+  lsp-javascript-format-enable
+  :init
+  (define-derived-mode js/jsx-mode js-mode "js/jsx"
+    "Major mode for JS/JSX"
+    (add-node-modules-path)
+    (add-hook 'before-save-hook 'prettier-js 100 t))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js/jsx-mode))
+  (setq lsp-javascript-format-enable nil))
+
+(use-package typescript-mode
+  :defines
+  lsp-typescript-format-enable
+  :init
+  (define-derived-mode ts/tsx-mode typescript-mode "ts/tsx"
+    "Major mode for TS/TSX"
+    (add-node-modules-path)
+    (add-hook 'before-save-hook 'prettier-js 100 t))
+  :config
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . ts/tsx-mode))
+  (setq lsp-typescript-format-enable nil))
+
+;;-------------;;
+;; Tree Sitter ;;
+;;-------------;;
+;; TODO: Add other programming languages:
+;;   https://github.com/emacs-tree-sitter/tree-sitter-langs/tree/master/repos
+(use-package tree-sitter
+  :hook ((js/jsx-mode . tree-sitter-hl-mode)
+	 (ts/tsx-mode . tree-sitter-hl-mode)))
+
+(use-package tree-sitter-langs
+  :after tree-sitter
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(js/jsx-mode . tsx))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(ts/tsx-mode . tsx)))
+
+;;-----;;
+;; LSP ;;
+;;-----;;
+(use-package python
+  :defines
+  lsp-pylsp-plugins-pydocstyle-enabled
+  lsp-pylsp-plugins-pycodestyle-enabled
+  lsp-pylsp-plugins-mccabe-enabled
+  lsp-pylsp-plugins-pyflakes-enabled
+  lsp-pylsp-plugins-pylint-enabled
+  lsp-pylsp-plugins-yapf-enabled
+  :config
+  (setq lsp-pylsp-plugins-pydocstyle-enabled nil)
+  (setq lsp-pylsp-plugins-pycodestyle-enabled nil)
+  (setq lsp-pylsp-plugins-mccabe-enabled nil)
+  (setq lsp-pylsp-plugins-pyflakes-enabled nil)
+  (setq lsp-pylsp-plugins-pylint-enabled nil)
+  (setq lsp-pylsp-plugins-yapf-enabled t)
+  )
+
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :commands (lsp lsp-deferred)
+  :config
+  (defun lsp-install-before-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         (lsp-mode . lsp-install-before-save-hooks)
+         (go-mode . lsp-deferred)
+         (js/jsx-mode . lsp-deferred)
+         (ts/tsx-mode . lsp-deferred)
+         (python-mode . lsp-deferred)))
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+(use-package which-key
+    :config
+    (which-key-mode))
 
 ;;-------;;
 ;; Theme ;;
@@ -553,14 +530,9 @@
  '(flycheck-flake8rc ".flake8")
  '(js-indent-level 2)
  '(package-selected-packages
-   (quote
-    (flycheck-rust cargo rust-mode arduino-mode dash terraform-mode flymd protobuf-mode flycheck go-eldoc auto-complete-config go-autocomplete auto-complete go-mode groovy-emacs-mode groovy-mode multi-term magithub magit yaml-mode web-mode use-package rjsx-mode rainbow-mode py-isort markdown-mode json-mode exec-path-from-shell ess ensime elpy dockerfile-mode counsel-projectile ace-window)))
+   '(typescript javascript-mode js-mode flycheck-rust cargo rust-mode arduino-mode dash terraform-mode flymd protobuf-mode flycheck go-eldoc auto-complete-config go-autocomplete auto-complete go-mode groovy-emacs-mode groovy-mode multi-term magithub magit yaml-mode web-mode use-package rjsx-mode rainbow-mode py-isort markdown-mode json-mode exec-path-from-shell ess ensime elpy dockerfile-mode counsel-projectile ace-window))
  '(safe-local-variable-values
-   (quote
-    ((eval remove-hook
-           (quote before-save-hook)
-           (quote py-isort-before-save)
-           t)))))
+   '((eval remove-hook 'before-save-hook 'py-isort-before-save t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
