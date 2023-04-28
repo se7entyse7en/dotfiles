@@ -255,7 +255,6 @@
   (pyvenv-mode 1)
   (pyvenv-tracking-mode 1))
 
-
 ;;-------;;
 ;; Scala ;;
 ;;-------;;
@@ -476,13 +475,19 @@
   lsp-pylsp-plugins-pyflakes-enabled
   lsp-pylsp-plugins-pylint-enabled
   lsp-pylsp-plugins-yapf-enabled
+  lsp-pylsp-plugins-autopep8-enabled
   :config
   (setq lsp-pylsp-plugins-pydocstyle-enabled nil)
   (setq lsp-pylsp-plugins-pycodestyle-enabled nil)
   (setq lsp-pylsp-plugins-mccabe-enabled nil)
   (setq lsp-pylsp-plugins-pyflakes-enabled nil)
   (setq lsp-pylsp-plugins-pylint-enabled nil)
-  (setq lsp-pylsp-plugins-yapf-enabled t)
+  (setq lsp-pylsp-plugins-yapf-enabled nil)
+  (setq lsp-pylsp-plugins-autopep8-enabled t)
+  (lsp-register-custom-settings '(("pyls.plugins.pyls_mypy.enabled" t t)
+                                  ("pyls.plugins.pyls_mypy.live_mode" nil t)
+                                  ("pylsp.plugins.pylsp_mypy.enabled" t t)
+                                  ("pylsp.plugins.pylsp_mypy.live_mode" nil t)))
   )
 
 (use-package lsp-mode
@@ -506,6 +511,11 @@
 (use-package which-key
     :config
     (which-key-mode))
+
+;;-------------;;
+;; Development ;;
+;;-------------;;
+(global-set-key (kbd "C-c t") (lambda () (interactive) (insert "[@se7entyse7en] TODO: ")))
 
 ;;-------;;
 ;; Theme ;;
@@ -532,7 +542,8 @@
  '(package-selected-packages
    '(typescript javascript-mode js-mode flycheck-rust cargo rust-mode arduino-mode dash terraform-mode flymd protobuf-mode flycheck go-eldoc auto-complete-config go-autocomplete auto-complete go-mode groovy-emacs-mode groovy-mode multi-term magithub magit yaml-mode web-mode use-package rjsx-mode rainbow-mode py-isort markdown-mode json-mode exec-path-from-shell ess ensime elpy dockerfile-mode counsel-projectile ace-window))
  '(safe-local-variable-values
-   '((eval remove-hook 'before-save-hook 'py-isort-before-save t))))
+   '((eval remove-hook 'before-save-hook 'py-isort-before-save t)))
+ '(typescript-indent-level 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
